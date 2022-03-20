@@ -1,4 +1,8 @@
+/* Styled Div component as Box  */
+
 import styled from "styled-components";
+import propTypes from "@styled-system/prop-types";
+
 import {
   background,
   border,
@@ -20,6 +24,17 @@ const Box = styled.div`
   ${space}
   ${textAlign}
 `;
+
+Box.propTypes = {
+  ...propTypes.background,
+  ...propTypes.border,
+  ...propTypes.color,
+  ...propTypes.flexbox,
+  ...propTypes.layout,
+  ...propTypes.position,
+  ...propTypes.space,
+  ...propTypes.textAlign,
+};
 
 Box.displayName = "Box";
 
