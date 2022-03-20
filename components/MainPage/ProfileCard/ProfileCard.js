@@ -1,46 +1,92 @@
 import React from "react";
 import Image from "next/image";
-import { Flex } from "components/common/Box/Box";
+import Box, { Flex } from "components/common/Box/Box";
+import LocationMarkerIcon from "@/components/common/Icons/LocationMarkerIcon";
+import Text from "components/common/Text/Text";
+import EmptyAvatar from "public/images/empty_avatar_image.jpeg";
+import { ONLINE, OFFLINE, DATE } from "constants/constants";
+import { blurImageURI } from "./ProfileCard.misc";
 import PropTypes from "prop-types";
 
+import Status from "./Status.js";
+
+import styled from "styled-components";
+
+const ImageWrapper = styled(Box)`
+  & > span {
+    display: block !important;
+  }
+`;
+
 export default function ProfileCard({
-  id,
   name,
-  online_status = "o",
-  is_plus = false,
+  online_status,
   picture,
-  // last_login,
+  headline,
+  last_login,
+  location,
+  personal,
 }) {
-  console.log(picture.url, "pic");
   return (
-    <Flex id={id} flexDirection="column" maxHeight={300}>
-      {picture.url && (
+    <Flex
+      mt="small"
+      pb="small"
+      bg="background"
+      flexDirection="column"
+      minHeight={480}
+      height="auto"
+    >
+      <ImageWrapper position="relative">
         <Image
-          src={picture.url}
+          placeholder="blur" // Using blurring filter while image is lazyloading
+          blurDataURL={blurImageURI}
+          src={picture.url || EmptyAvatar}
           alt={picture.comment}
-          width={200}
-          height={200}
+          width="100%"
+          height={250}
+          objectFit="cover"
         />
-      )}
-      <Flex flexDirection="row">
-        <Flex flexDirection="row">
-          {name} | {online_status} | {is_plus}
+      </ImageWrapper>
+      <Flex color="white" px="mini" flexDirection="column">
+        <Flex
+          fontSize="middle"
+          flexDirection="row"
+          alignItems="center"
+          mt="mini"
+        >
+          {personal?.age} | {name}
         </Flex>
+        <Status last_login={last_login} online_status={online_status} />
+        <Flex flexDirection="row" alignItems="center" color="white">
+          <LocationMarkerIcon width={13} height={13} />{" "}
+          <Text ml="mini" fontSize="mini">
+            {location.distance} km / {location.name}
+          </Text>
+        </Flex>
+        <Text fontSize="mini" mt="middle" fontStyle="italic">
+          `{headline}`
+        </Text>
       </Flex>
     </Flex>
   );
 }
 
 ProfileCard.propTypes = {
-  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   online_status: PropTypes.string.isRequired,
-  is_plus: PropTypes.bool.isRequired,
-  picture: PropTypes.exact({
+  last_login: PropTypes.string.isRequired,
+  online_status: PropTypes.oneOf([ONLINE, OFFLINE, DATE]).isRequired,
+  location: PropTypes.shape({
+    distance: PropTypes.number,
+    name: PropTypes.string,
+  }).isRequired,
+  picture: PropTypes.shape({
     comment: PropTypes.string,
     url: PropTypes.string,
-  }),
-  // last_login: PropTypes.string.isRequired,
+  }).isRequired,
+  personal: PropTypes.shape({
+    age: PropTypes.number,
+  }).isRequired,
 };
 
 ProfileCard.defaultProps = {
