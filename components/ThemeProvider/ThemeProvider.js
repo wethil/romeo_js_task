@@ -45,7 +45,7 @@ const mediaQueries = {
 };
 
 const fonts = [
-  "Montserrat, Verdana, Geneva, sans-serif",
+  "Roboto, Oxygen, Ubuntu, sans-serif",
   "'Source Sans Pro', 'Trebuchet MS', Helvetica, sans-serif",
 ];
 fonts.primary = fonts[0];
