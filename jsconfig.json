@@ -3,6 +3,9 @@
       "baseUrl": ".",
       "paths": {
         "@/components/*": ["components/*"],
+        "@/public/*": [
+          "public/*"
+        ],
         "@/common/*": [
             "components/common/*"
         ],
