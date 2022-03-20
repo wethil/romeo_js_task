@@ -24,3 +24,11 @@ const Box = styled.div`
 Box.displayName = "Box";
 
 export default Box;
+
+export const Flex = styled(Box)``;
+
+Flex.propTypes = Box.propTypes;
+
+Flex.defaultProps = {
+  display: "flex",
+};
