@@ -22,7 +22,6 @@ export default function MainPageContainer() {
   const { data, isLoading } = useSearchMembersByFilterQuery(query, {
     skip: hasReachEnd, // The parameter that prevent us unnecessary API calls
   });
-  console.log(data, isLoading, "daata");
 
   useEffect(() => {
     if (data?.items?.length) {
